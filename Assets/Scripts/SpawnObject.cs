@@ -11,7 +11,7 @@ public class SpawnObject : MonoBehaviour
         if ( activeCounter < 0 )
         {
             activeCounter = spawnCounter;
-            Instantiate(cube).GetComponent<Cube>().Initialize(1);
+            ObjectPool.Instance.Spawn(transform.position).GetComponent<Cube>().Initialize(1);
         }
     }
 }

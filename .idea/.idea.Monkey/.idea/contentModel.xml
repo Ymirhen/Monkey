@@ -10,6 +10,7 @@
           <e p="Camera.cs" t="Include" />
           <e p="Controls.cs" t="Include" />
           <e p="Cube.cs" t="Include" />
+          <e p="ObjectPool.cs" t="Include" />
           <e p="SpawnObject.cs" t="Include" />
         </e>
       </e>

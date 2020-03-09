@@ -122,4 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb3e8ceb9f5cdf40b5536ad810f516a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubeMaterial: {fileID: 4347109690592023599}
+  cubeMesh: {fileID: 4347109690592023599}
+  particleSystem: {fileID: 0}
+  collider: {fileID: 4347109690592023598}
