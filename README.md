@@ -4,11 +4,11 @@
 Make a basic game using colliders and 3D objects.
 
 **TO-DO**
-- ~~Game Arena~~
-- ~~Ball and Camera~~
-- ~~Cube and Spawning~~
+- ~~Game Arena~~ (Finished, might rework)
+- ~~Ball and Camera~~ (Finished)
+- ~~Cube and Spawning~~ (Finished)
 - Cube Destruction
-- Earning XP
+- ~~Earning XP~~ (Finished)
 - Earning Loot
 - UI
 - *(Potentially)* AI elements (enemies)
