@@ -3,15 +3,15 @@
 public class SpawnObject : MonoBehaviour
 {
     public float spawnCounter = 5;
-    private float activeCounter;
+    private float _activeCounter;
     public GameObject cube;
     void Update()
     {
-        activeCounter -= Time.deltaTime;
-        if ( activeCounter < 0 )
+        _activeCounter -= Time.deltaTime;
+        if ( _activeCounter < 0 )
         {
-            activeCounter = spawnCounter;
-            ObjectPool.Instance.Spawn(transform.position).GetComponent<Cube>().Initialize(1);
+            _activeCounter = spawnCounter;
+            ObjectPool.Instance.Spawn(transform.position);
         }
     }
 }

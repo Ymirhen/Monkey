@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class Cube : MonoBehaviour
@@ -6,17 +7,21 @@ public class Cube : MonoBehaviour
     private int _level;
     private int _currentHp;
     private int _maxHp;
-    private readonly float _damageCooldown = 1f;
+    private readonly float _damageCooldown = .8f;
     private bool _canTakeDamage;
 
     public MeshRenderer cubeMesh;
-    public void Initialize(int level)
+    public TextMeshPro[] texts;
+    private void OnEnable()
     {
-        SetLevel(level);
+        SetLevel(GameManager.Instance.level);
         SetHp();
         SetDamageStatus();
         SetColor();
+        SetLabelValues();
     }
+
+    #region Initialization (works at 'OnEnable')
 
     private void SetLevel(int level)
     {
@@ -51,26 +56,45 @@ public class Cube : MonoBehaviour
         }
     }
 
+    private void SetLabelValues()
+    {
+        foreach (var label in texts)
+        {
+            label.text = _maxHp.ToString();
+        }
+    }
+
+    #endregion
+    
     private void OnCollisionEnter(Collision other)
     {
         if (!other.gameObject.CompareTag("Player") || !_canTakeDamage) return;
 
         _canTakeDamage = false;
         ProcessHit();
-        StartCoroutine(Countdown());
     }
 
     private void ProcessHit()
     {
         _currentHp--;
         SetColor();
-        if (_currentHp <= 0)
+        StartCoroutine(InvulnerabilityFrame());
+        UpdateLabels();
+        if (_currentHp > 0) return;
+        
+        GameManager.Instance.GainExp();
+        ObjectPool.Instance.Recycle(gameObject);
+    }
+
+    private void UpdateLabels()
+    {
+        foreach (var label in texts)
         {
-            ObjectPool.Instance.Recycle(gameObject);
+            label.text = _currentHp.ToString();
         }
     }
     
-    private IEnumerator Countdown()
+    private IEnumerator InvulnerabilityFrame()
     {
         float duration = _damageCooldown;
         float normalizedTime = 0;
