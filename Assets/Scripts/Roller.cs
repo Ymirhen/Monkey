@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Controls : MonoBehaviour
+public class Roller : MonoBehaviour
 {
     private Rigidbody sphereRigidbody;
 

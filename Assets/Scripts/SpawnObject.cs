@@ -11,7 +11,7 @@ public class SpawnObject : MonoBehaviour
         if ( _activeCounter < 0 )
         {
             _activeCounter = spawnCounter;
-            ObjectPool.Instance.Spawn(transform.position);
+            ObjectPool.Spawn(cube, transform.position);
         }
     }
 }

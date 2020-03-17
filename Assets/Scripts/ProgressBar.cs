@@ -9,16 +9,16 @@ public class ProgressBar : MonoBehaviour
     public Text nextLevel;
     private void OnEnable()
     {
-        GameManager.expChanged += AdjustSlider;
-        GameManager.levelChanged += HandleEdges;
+        GameManager.ExpChanged += AdjustSlider;
+        GameManager.LevelChanged += HandleEdges;
         currentLevel.text = GameManager.Instance.level.ToString();
         nextLevel.text = (GameManager.Instance.level + 1).ToString();
     }
 
     private void OnDisable()
     {
-        GameManager.expChanged -= AdjustSlider;
-        GameManager.levelChanged -= HandleEdges;
+        GameManager.ExpChanged -= AdjustSlider;
+        GameManager.LevelChanged -= HandleEdges;
     }
 
     private void AdjustSlider(int exp)

@@ -24,8 +24,8 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    public static event Action<int> levelChanged;
-    public static event Action<int> expChanged;
+    public static event Action<int> LevelChanged;
+    public static event Action<int> ExpChanged;
 
     public int exp;
     public int expToLevel;
@@ -34,14 +34,14 @@ public class GameManager : MonoBehaviour
     public void GainExp()
     {
         exp += level;
-        expChanged?.Invoke(exp);
+        ExpChanged?.Invoke(exp);
 
         if (exp < expToLevel) return;
         
         exp %= expToLevel;
         level++;
         expToLevel *= level;
-        levelChanged?.Invoke(level);
-        expChanged?.Invoke(exp);
+        LevelChanged?.Invoke(level);
+        ExpChanged?.Invoke(exp);
     }
 }

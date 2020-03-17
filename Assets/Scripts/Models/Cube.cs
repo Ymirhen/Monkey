@@ -83,7 +83,7 @@ public class Cube : MonoBehaviour
         if (_currentHp > 0) return;
         
         GameManager.Instance.GainExp();
-        ObjectPool.Instance.Recycle(gameObject);
+        ObjectPool.Recycle(gameObject);
     }
 
     private void UpdateLabels()

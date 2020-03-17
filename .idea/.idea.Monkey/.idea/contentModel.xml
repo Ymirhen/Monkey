@@ -9,8 +9,10 @@
         <e p="Scripts" t="Include">
           <e p="Camera.cs" t="Include" />
           <e p="Controls.cs" t="Include" />
-          <e p="Cube.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
+          <e p="Models" t="Include">
+            <e p="Cube.cs" t="Include" />
+          </e>
           <e p="ObjectPool.cs" t="Include" />
           <e p="ProgressBar.cs" t="Include" />
           <e p="SpawnObject.cs" t="Include" />
