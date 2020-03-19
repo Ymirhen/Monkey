@@ -2,107 +2,118 @@
 using TMPro;
 using UnityEngine;
 
-public class Cube : MonoBehaviour
+namespace Models
 {
-    private int _level;
-    private int _currentHp;
-    private int _maxHp;
-    private readonly float _damageCooldown = .8f;
-    private bool _canTakeDamage;
-
-    public MeshRenderer cubeMesh;
-    public TextMeshPro[] texts;
-    private void OnEnable()
+    public class Cube : MonoBehaviour
     {
-        SetLevel(GameManager.Instance.level);
-        SetHp();
-        SetDamageStatus();
-        SetColor();
-        SetLabelValues();
-    }
+        private int _level;
+        private int _currentHp;
+        private int _maxHp;
+        private readonly float _damageCooldown = .8f;
+        private bool _canTakeDamage;
 
-    #region Initialization (works at 'OnEnable')
-
-    private void SetLevel(int level)
-    {
-        _level = level;
-    }
-
-    private void SetHp()
-    {
-        _maxHp = _level * 3;
-        _currentHp = _maxHp;
-    }
-
-    private void SetDamageStatus()
-    {
-        _canTakeDamage = true;
-    }
-
-    private void SetColor()
-    {
-        float healthRatio = _currentHp / (float) _maxHp;
-        if (healthRatio > .7f)
-        {
-            cubeMesh.material.color = Color.green;
-        }
-        else if (healthRatio <= .7f && healthRatio >= .4f)
-        {
-            cubeMesh.material.color = Color.yellow;
-        }
-        else if (healthRatio <= .4f)
-        {
-            cubeMesh.material.color = Color.red;
-        }
-    }
-
-    private void SetLabelValues()
-    {
-        foreach (var label in texts)
-        {
-            label.text = _maxHp.ToString();
-        }
-    }
-
-    #endregion
-    
-    private void OnCollisionEnter(Collision other)
-    {
-        if (!other.gameObject.CompareTag("Player") || !_canTakeDamage) return;
-
-        _canTakeDamage = false;
-        ProcessHit();
-    }
-
-    private void ProcessHit()
-    {
-        _currentHp--;
-        SetColor();
-        StartCoroutine(InvulnerabilityFrame());
-        UpdateLabels();
-        if (_currentHp > 0) return;
+        public MeshRenderer cubeMesh;
+        public GameObject coinPrefab;
+        public TextMeshPro[] texts;
         
-        GameManager.Instance.GainExp();
-        ObjectPool.Recycle(gameObject);
-    }
+        private void OnEnable()
+        {
+            SetLevel(GameManager.Instance.level);
+            SetHp();
+            SetDamageStatus();
+            SetColor();
+            SetLabelValues();
+        }
 
-    private void UpdateLabels()
-    {
-        foreach (var label in texts)
+        #region Initialization (works at 'OnEnable')
+
+        private void SetLevel(int level)
         {
-            label.text = _currentHp.ToString();
+            _level = level;
         }
-    }
+
+        private void SetHp()
+        {
+            _maxHp = _level * 3;
+            _currentHp = _maxHp;
+        }
+
+        private void SetDamageStatus()
+        {
+            _canTakeDamage = true;
+        }
+
+        private void SetColor()
+        {
+            float healthRatio = _currentHp / (float) _maxHp;
+            if (healthRatio > .7f)
+            {
+                cubeMesh.material.color = Color.green;
+            }
+            else if (healthRatio <= .7f && healthRatio >= .4f)
+            {
+                cubeMesh.material.color = Color.yellow;
+            }
+            else if (healthRatio <= .4f)
+            {
+                cubeMesh.material.color = Color.red;
+            }
+        }
+
+        private void SetLabelValues()
+        {
+            foreach (var label in texts)
+            {
+                label.text = _maxHp.ToString();
+            }
+        }
+
+        #endregion
     
-    private IEnumerator InvulnerabilityFrame()
-    {
-        float duration = _damageCooldown;
-        float normalizedTime = 0;
-        while(normalizedTime <= _damageCooldown)
+        private void OnCollisionEnter(Collision other)
         {
-            normalizedTime += Time.deltaTime / duration;
-            yield return null;
+            if (!other.gameObject.CompareTag("Player") || !_canTakeDamage) return;
+
+            _canTakeDamage = false;
+            ProcessHit();
         }
-        yield return _canTakeDamage = true;
+
+        private void ProcessHit()
+        {
+            _currentHp--;
+            SetColor();
+            StartCoroutine(InvulnerabilityFrame());
+            UpdateLabels();
+            if (_currentHp > 0) return;
+        
+            GameManager.Instance.GainExp();
+            ThrowCoin();
+            ObjectPool.Recycle(gameObject);
+        }
+
+        private void ThrowCoin()
+        {
+            ObjectPool.Spawn(coinPrefab, transform.position);
+        }
+
+        private void UpdateLabels()
+        {
+            foreach (var label in texts)
+            {
+                label.text = _currentHp.ToString();
+            }
+        }
+    
+        private IEnumerator InvulnerabilityFrame()
+        {
+            float duration = _damageCooldown;
+            float normalizedTime = 0;
+            while(normalizedTime <= _damageCooldown)
+            {
+                normalizedTime += Time.deltaTime / duration;
+                yield return null;
+            }
+            yield return _canTakeDamage = true;
+        }
     }
 }

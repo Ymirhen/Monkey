@@ -537,6 +537,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cubeMesh: {fileID: 4347109690592023599}
+  coinPrefab: {fileID: 8743424393716855718, guid: 79180c5e09ff2294f9634a69fffcd4c2,
+    type: 3}
   texts:
   - {fileID: 6826911514340779342}
   - {fileID: 3167113783242052059}

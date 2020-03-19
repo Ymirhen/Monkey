@@ -8,14 +8,18 @@
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
           <e p="Camera.cs" t="Include" />
-          <e p="Controls.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="Models" t="Include">
+            <e p="Coin.cs" t="Include" />
             <e p="Cube.cs" t="Include" />
           </e>
           <e p="ObjectPool.cs" t="Include" />
-          <e p="ProgressBar.cs" t="Include" />
+          <e p="Roller.cs" t="Include" />
           <e p="SpawnObject.cs" t="Include" />
+          <e p="Views" t="Include">
+            <e p="ProgressBar.cs" t="Include" />
+            <e p="Upgrade.cs" t="Include" />
+          </e>
         </e>
         <e p="Shaders" t="Include">
           <e p="3DTextShader.shader" t="Include" />

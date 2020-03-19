@@ -26,10 +26,12 @@ public class GameManager : MonoBehaviour
 
     public static event Action<int> LevelChanged;
     public static event Action<int> ExpChanged;
+    public static event Action<int> CoinChanged;
 
     public int exp;
     public int expToLevel;
     public int level;
+    public int coin;
 
     public void GainExp()
     {
@@ -43,5 +45,11 @@ public class GameManager : MonoBehaviour
         expToLevel *= level;
         LevelChanged?.Invoke(level);
         ExpChanged?.Invoke(exp);
+    }
+
+    public void GainCoin()
+    {
+        coin++;
+        CoinChanged?.Invoke(coin);
     }
 }
